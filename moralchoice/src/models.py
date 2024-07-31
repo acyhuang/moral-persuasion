@@ -66,7 +66,7 @@ def get_api_key(company_identifier: str) -> str:
     """
     Helper Function to retrieve API key from files
     """
-    path_key = f"api_keys/{company_identifier}_key.txt"
+    path_key = f"../api_keys/{company_identifier}_key.txt"
 
     if os.path.exists(path_key):
         with open(path_key, encoding="utf-8") as f:
