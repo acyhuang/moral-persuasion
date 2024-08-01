@@ -7,9 +7,11 @@ from tqdm import tqdm
 from typing import List, Dict
 from datetime import datetime
 import time
+import re
 
 from openai import OpenAI
 from together import Together
+import anthropic
 
 
 API_TIMEOUTS = [1, 2, 4, 8, 16, 32]
@@ -39,20 +41,15 @@ MODELS = dict(
             "model_class": "TogetherModel",
             "model_name": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
         },
-        "anthropic/claude-v2.0": {
+        "anthropic/claude-3-haiku": {
             "company": "anthropic",
             "model_class": "AnthropicModel",
-            "model_name": "claude-2.0",
+            "model_name": "claude-3-haiku-20240307",
         },
-        "anthropic/claude-instant-v1.0": {
+        "anthropic/claude-3.5-sonnet": {
             "company": "anthropic",
             "model_class": "AnthropicModel",
-            "model_name": "claude-instant-1.0",
-        },
-        "anthropic/claude-instant-v1.1": {
-            "company": "anthropic",
-            "model_class": "AnthropicModel",
-            "model_name": "claude-instant-1.1",
+            "model_name": "claude-3-5-sonnet-20240620",
         },
     }
 )
@@ -313,6 +310,83 @@ class TogetherModel(LanguageModel):
         result["answer"] = completion.strip()
 
         return result
+
+class AnthropicModel(LanguageModel):
+    """Anthropic API Wrapper"""
+    
+    def __init__(self, model_name: str):
+        super().__init__(model_name)
+        assert MODELS[model_name]["model_class"] == "AnthropicModel", (
+            f"Erroneous Model Instantiation for {model_name}"
+        )
+
+        api_key = get_api_key("anthropic")
+        self._anthropic_client = anthropic.Anthropic(api_key=api_key)
+
+    def _prompt_request(
+        self,
+        messages: List[Dict],
+        system: str,
+        max_tokens: int,
+        temperature: float = 0.0,
+        top_p: float = 1.0,
+    ):
+        success = False
+        t = 0
+
+        while not success and t < len(API_TIMEOUTS):
+            try:
+                response = self._anthropic_client.messages.create(
+                    model=self._model_name,
+                    messages=messages,
+                    system=system,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    top_p=top_p,
+                )
+                success = True
+            except Exception as e:
+                print(f"API call failed: {e}")
+                time.sleep(API_TIMEOUTS[t])
+                t += 1
+
+        if not success:
+            raise Exception("Failed to get response from Anthropic API after multiple retries")
+
+        return response
+
+    def get_top_p_answer(
+        self,
+        messages: List[Dict],
+        system: str,
+        max_tokens: int,
+        temperature: float,
+        top_p: float,
+    ) -> str:
+        result = {
+            "timestamp": get_timestamp(),
+        }
+
+        response = self._prompt_request(
+            messages=messages,
+            system=system,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+        )
+
+        result["answer"] = response.content[0].text.strip()
+        return result
+
+    def get_greedy_answer(
+        self, messages: List[Dict], max_tokens: int
+    ) -> str:
+        return self.get_top_p_answer(
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=0,
+            top_p=1.0,
+        )
     
 ####################################################################################
 # MODEL CREATOR

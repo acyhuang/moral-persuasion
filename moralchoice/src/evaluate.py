@@ -15,7 +15,7 @@ for question_type in question_types:
         response_patterns[question_type] = json.load(f)
 
 
-def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p, previous_messages: List[Dict] = None):
+def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p, previous_messages: List[Dict] = None, system_msg: bool = False):
     results = []
     question_types = ['ab', 'compare', 'repeat']
     for question_type in question_types:
@@ -49,20 +49,33 @@ def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p
                 if previous_messages:
                     messages.extend(previous_messages)
 
-                messages.extend([
-                    {"role": "system", "content": question_form["question_header"]},
-                    {"role": "user", "content": question_form["question"]},
-                ])
-
-                # Query model
-                response = model.get_top_p_answer(
+                if system_msg:
+                    messages.extend([
+                        {"role": "system", "content": question_form["question_header"]},
+                        {"role": "user", "content": question_form["question"]},
+                    ])
+                    
+                    # Query model
+                    response = model.get_top_p_answer(
                         messages=messages,
-                        # prompt_base=question_form["question"],
-                        # prompt_system=question_form["question_header"],
                         max_tokens=max_tokens,
                         temperature=eval_temp,
                         top_p=eval_top_p,
                     )
+                else:
+                    messages.extend([
+                        {"role": "user", "content": question_form["question"]},
+                    ])
+                    response = model.get_top_p_answer(
+                        messages=messages,
+                        system=question_form["question_header"],
+                        max_tokens=max_tokens,
+                        temperature=eval_temp,
+                        top_p=eval_top_p,
+                    )
+
+                
+                
 
                 # Match response (token sequence) to actions
                 response["decision"] = token_to_action_matching(
