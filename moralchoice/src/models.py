@@ -41,6 +41,11 @@ MODELS = dict(
             "model_class": "TogetherModel",
             "model_name": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
         },
+        "mistral/mixtral-8x7b": {
+            "company": "mistral",
+            "model_class": "TogetherModel",
+            "model_name": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+        },
         "anthropic/claude-3-haiku": {
             "company": "anthropic",
             "model_class": "AnthropicModel",

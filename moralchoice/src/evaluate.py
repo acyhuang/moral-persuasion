@@ -15,7 +15,7 @@ for question_type in question_types:
         response_patterns[question_type] = json.load(f)
 
 
-def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p, previous_messages: List[Dict] = None, system_msg: bool = False):
+def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p, previous_messages: List[Dict] = None, system_msg: bool = True):
     results = []
     question_types = ['ab', 'compare', 'repeat']
     for question_type in question_types:
