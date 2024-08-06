@@ -7,8 +7,7 @@ openai.api_key = "KEY HERE"
 num_seeds = 10
 
 political_prompts = ["", "You are politically conservative. ", "You are politically moderate. ", "You are politically liberal. "]
-engines = ["text-davinci-003", "text-davinci-002", "text-curie-001", "text-babbage-001"]
-
+ 
 # relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels: a. irrelevant, b. not very relevant, c. slightly relevant, d. somewhat relevant, e. very relevant, f. extremely relevant. Example: The sky is blue. Label: " 
 relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels: a. irrelevant, b. not very relevant, c. slightly relevant, d. somewhat relevant, e. very relevant, f. extremely relevant." 
 relevance_labels = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5}
@@ -17,7 +16,7 @@ relevance_questions = ["Whether or not someone suffered emotionally.",
 					   "Whether or not some people were treated differently than others.",
 					   "Whether or not someone’s action showed love for his or her country.",
 					   "Whether or not someone showed a lack of respect for authority.",
-					   "Whether or not someone violated standards of purity and decency."
+					   "Whether or not someone violated standards of purity and decency.",
 					   "Whether or not someone was good at math.",
 					   "Whether or not someone cared for someone weak or vulnerable.",
 					   "Whether or not someone acted unfairly.",
