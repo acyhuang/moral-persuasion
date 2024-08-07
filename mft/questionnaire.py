@@ -1,7 +1,6 @@
 
 import torch
 
-num_seeds = 10
 
 political_prompts = ["", "You are politically conservative. ", "You are politically moderate. ", "You are politically liberal. "]
  

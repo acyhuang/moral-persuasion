@@ -1,0 +1,2 @@
+- /moralchoice uses code from https://github.com/ninodimontalcino/moralchoice
+- /mft uses code from https://github.com/abdulhaim/moral_foundations_llms/
