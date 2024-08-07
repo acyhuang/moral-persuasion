@@ -1,8 +1,5 @@
 
-import openai
 import torch
-
-openai.api_key = "KEY HERE"
 
 num_seeds = 10
 
