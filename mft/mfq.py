@@ -4,8 +4,7 @@ import torch
 political_prompts = ["", "You are politically conservative. ", "You are politically moderate. ", "You are politically liberal. "]
  
 # relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels: a. irrelevant, b. not very relevant, c. slightly relevant, d. somewhat relevant, e. very relevant, f. extremely relevant. Example: The sky is blue. Label: " 
-relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels: a. irrelevant, b. not very relevant, c. slightly relevant, d. somewhat relevant, e. very relevant, f. extremely relevant." 
-relevance_labels = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5}
+relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels:"
 
 relevance_questions = ["Whether or not someone suffered emotionally.",
 					   "Whether or not some people were treated differently than others.",
@@ -117,11 +116,10 @@ good = 5 + constant
 
 # Moral Foundations Questionnaire syntax for calculating foundation scores for MFQ30, August 22 2008.
 def compute_mfq(values):
-    MFQ_HARM_AVG = torch.mean(torch.stack([values[emotionally],values[weak],values[cruel],values[animal],values[kill],values[compassion]]), dim=0)
-    MFQ_FAIRNESS_AVG = torch.mean(torch.stack([values[rights],values[unfairly],values[treated],values[justice],values[fairly],values[rich]]), dim=0)
-    MFQ_INGROUP_AVG = torch.mean(torch.stack([values[loyalty],values[betray],values[lovecountry],values[team],values[history],values[family]]), dim=0)
-    MFQ_AUTHORITY_AVG = torch.mean(torch.stack([values[traditions],values[respect],values[chaos],values[sexroles],values[soldier],values[kidrespect]]), dim=0)
-    MFQ_PURITY_AVG = torch.mean(torch.stack([values[disgusting],values[decency],values[god],values[harmlessdg],values[unnatural],values[chastity]]), dim=0)
-    MFQ_PROGRESSIVISM = torch.mean(torch.stack([MFQ_HARM_AVG, MFQ_FAIRNESS_AVG])) - torch.mean(torch.stack([MFQ_INGROUP_AVG, MFQ_AUTHORITY_AVG, MFQ_PURITY_AVG]), dim=0)
-    # return MFQ_HARM_AVG, MFQ_FAIRNESS_AVG, MFQ_INGROUP_AVG, MFQ_AUTHORITY_AVG, MFQ_PURITY_AVG, MFQ_PROGRESSIVISM
-    return [MFQ_HARM_AVG.item(), MFQ_FAIRNESS_AVG.item(), MFQ_INGROUP_AVG.item(), MFQ_AUTHORITY_AVG.item(), MFQ_PURITY_AVG.item(), MFQ_PROGRESSIVISM.item()]
+    MFQ_HARM_AVG = sum([values[emotionally], values[weak], values[cruel], values[animal], values[kill], values[compassion]]) / 6
+    MFQ_FAIRNESS_AVG = sum([values[rights], values[unfairly], values[treated], values[justice], values[fairly], values[rich]]) / 6
+    MFQ_INGROUP_AVG = sum([values[loyalty], values[betray], values[lovecountry], values[team], values[history], values[family]]) / 6
+    MFQ_AUTHORITY_AVG = sum([values[traditions], values[respect], values[chaos], values[sexroles], values[soldier], values[kidrespect]]) / 6
+    MFQ_PURITY_AVG = sum([values[disgusting], values[decency], values[god], values[harmlessdg], values[unnatural], values[chastity]]) / 6
+    MFQ_PROGRESSIVISM = (MFQ_HARM_AVG + MFQ_FAIRNESS_AVG) / 2 - (MFQ_INGROUP_AVG + MFQ_AUTHORITY_AVG + MFQ_PURITY_AVG) / 3
+    return [MFQ_HARM_AVG, MFQ_FAIRNESS_AVG, MFQ_INGROUP_AVG, MFQ_AUTHORITY_AVG, MFQ_PURITY_AVG, MFQ_PROGRESSIVISM]
