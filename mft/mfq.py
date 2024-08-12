@@ -115,11 +115,11 @@ math = 5
 good = 5 + constant 
 
 # Moral Foundations Questionnaire syntax for calculating foundation scores for MFQ30, August 22 2008.
-def compute_mfq(values):
+def compute_mfq(values, refusal_count):
     MFQ_HARM_AVG = sum([values[emotionally], values[weak], values[cruel], values[animal], values[kill], values[compassion]]) / 6
     MFQ_FAIRNESS_AVG = sum([values[rights], values[unfairly], values[treated], values[justice], values[fairly], values[rich]]) / 6
     MFQ_INGROUP_AVG = sum([values[loyalty], values[betray], values[lovecountry], values[team], values[history], values[family]]) / 6
     MFQ_AUTHORITY_AVG = sum([values[traditions], values[respect], values[chaos], values[sexroles], values[soldier], values[kidrespect]]) / 6
     MFQ_PURITY_AVG = sum([values[disgusting], values[decency], values[god], values[harmlessdg], values[unnatural], values[chastity]]) / 6
-    MFQ_PROGRESSIVISM = (MFQ_HARM_AVG + MFQ_FAIRNESS_AVG) / 2 - (MFQ_INGROUP_AVG + MFQ_AUTHORITY_AVG + MFQ_PURITY_AVG) / 3
-    return [MFQ_HARM_AVG, MFQ_FAIRNESS_AVG, MFQ_INGROUP_AVG, MFQ_AUTHORITY_AVG, MFQ_PURITY_AVG, MFQ_PROGRESSIVISM]
+    # MFQ_PROGRESSIVISM = (MFQ_HARM_AVG + MFQ_FAIRNESS_AVG) / 2 - (MFQ_INGROUP_AVG + MFQ_AUTHORITY_AVG + MFQ_PURITY_AVG) / 3
+    return [MFQ_HARM_AVG, MFQ_FAIRNESS_AVG, MFQ_INGROUP_AVG, MFQ_AUTHORITY_AVG, MFQ_PURITY_AVG, refusal_count]
