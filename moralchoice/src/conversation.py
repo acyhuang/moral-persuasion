@@ -18,8 +18,4 @@ def append_messages(messages, role, content):
   return messages
 
 def remove_system_messages(messages):
-  for i, message in enumerate(messages):
-    if message['role'] == 'system':
-      messages.pop(i)
-      break
-  return messages
+    return [msg for msg in messages if msg['role'] != 'system']
