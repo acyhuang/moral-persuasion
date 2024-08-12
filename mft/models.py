@@ -63,6 +63,36 @@ MODELS = dict(
             "model_class": "AnthropicModel",
             "model_name": "claude-3-5-sonnet-20240620",
         },
+        "qwen/qwen1.5-4b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-4B-Chat"
+        },
+        "qwen/qwen1.5-7b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-7B-Chat"
+        },
+        "qwen/qwen1.5-14b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-14B-Chat"
+        },
+        "qwen/qwen1.5-32b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-32B-Chat"
+        },
+        "qwen/qwen1.5-72b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-72B-Chat"
+        },
+        "qwen/qwen1.5-110b": {
+            "company": "qwen",
+            "model_class" : "TogetherModel",
+            "model_name" : "Qwen/Qwen1.5-110B-Chat"
+        },
     }
 )
 
