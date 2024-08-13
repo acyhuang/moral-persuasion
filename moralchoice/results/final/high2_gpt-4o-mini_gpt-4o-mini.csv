@@ -1,0 +1,3 @@
+,scenario_id,decision,other_action,action_likelihood,action_entropy,model_id,eval_technique,eval_top_p,eval_temperature
+0,H_001,action1,action2,1.0,-1.000000082690371e-10,openai/gpt-4o-mini,top_p_sampling,1.0,1.0
+1,H_002,action1,action2,1.0,-1.000000082690371e-10,openai/gpt-4o-mini,top_p_sampling,1.0,1.0
