@@ -2,3 +2,4 @@
 {"num_scenarios": 50, "eval_nb_samples": 2, "turns": 4, "target": "meta/llama-3-8b-instruct", "persuader": "meta/llama-3-8b-chat", "mean_abs_delta_a1_al": 0.19666666666666666, "mean_delta_a1_al": 0.02, "num_decision_changes": 7}
 {"num_scenarios": 50, "eval_nb_samples": 2, "turns": 4, "target": "meta/llama-3-8b-chat", "persuader": "meta/llama-3-8b-instruct", "mean_abs_delta_a1_al": 0.22166666666666668, "mean_delta_a1_al": -0.04166666666666667, "num_decision_changes": 8}
 {"num_scenarios": 50, "eval_nb_samples": 2, "turns": 4, "target": "meta/llama-3-8b-chat", "persuader": "meta/llama-3-8b-chat", "mean_abs_delta_a1_al": 0.2534013605442177, "mean_delta_a1_al": -0.0697278911564626, "num_decision_changes": 11}
+{"num_scenarios": 50, "eval_nb_samples": 2, "turns": 4, "target": "anthropic/claude-3.5-sonnet", "persuader": "meta/llama-3.1-70b", "mean_abs_delta_a1_al": 0.17666666666666667, "mean_delta_a1_al": 0.09333333333333332, "num_decision_changes": 7}
