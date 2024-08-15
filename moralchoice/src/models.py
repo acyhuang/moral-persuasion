@@ -41,6 +41,16 @@ MODELS = dict(
             "model_class": "TogetherModel",
             "model_name": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
         },
+        "meta/llama-3-8b-instruct": {
+            "company": "meta",
+            "model_class": "TogetherModel",
+            "model_name": "meta-llama/Meta-Llama-3-8B-Instruct-Turbo"
+        },
+        "meta/llama-3-8b-chat": {
+            "company": "meta",
+            "model_class": "TogetherModel",
+            "model_name": "meta-llama/Llama-3-8b-chat-hf"
+        },
         "mistral/mixtral-8x7b": {
             "company": "mistral",
             "model_class": "TogetherModel",
