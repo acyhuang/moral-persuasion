@@ -12,6 +12,7 @@ import re
 from openai import OpenAI
 from together import Together
 import anthropic
+import google.generativeai as google
 
 
 API_TIMEOUTS = [1, 2, 4, 8, 16, 32]
@@ -51,6 +52,11 @@ MODELS = dict(
             "model_class": "TogetherModel",
             "model_name": "meta-llama/Llama-3-8b-chat-hf"
         },
+        "mistral/mistral-7b-instruct": {
+            "company": "mistral",
+            "model_class": "TogetherModel",
+            "model_name": "mistralai/Mistral-7B-Instruct-v0.3",
+        },
         "mistral/mixtral-8x7b": {
             "company": "mistral",
             "model_class": "TogetherModel",
@@ -66,6 +72,11 @@ MODELS = dict(
             "model_class": "AnthropicModel",
             "model_name": "claude-3-5-sonnet-20240620",
         },
+        "google/gemma-7b":{
+            "company": "google",
+            "model_class": "TogetherModel",
+            "model_name": "google/gemma-7b-it",
+        }
     }
 )
 
@@ -403,6 +414,83 @@ class AnthropicModel(LanguageModel):
             top_p=1.0,
         )
     
+class GoogleModel(LanguageModel):
+    """Google API Wrapper"""
+    
+    def __init__(self, model_name: str):
+        super().__init__(model_name)
+        assert MODELS[model_name]["model_class"] == "GoogleModel", (
+            f"Erroneous Model Instantiation for {model_name}"
+        )
+
+        api_key = get_api_key("google")
+        google.configure(api_key = api_key)
+
+    def _prompt_request(
+        self,
+        messages: List[Dict],
+        system: str,
+        max_tokens: int,
+        temperature: float = 0.0,
+        top_p: float = 1.0,
+    ):
+        success = False
+        t = 0
+
+        while not success and t < len(API_TIMEOUTS):
+            try:
+                response = self.generate_content(
+                    model=self._model_name,
+                    messages=messages,
+                    system_instruction=system,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    top_p=top_p,
+                )
+                success = True
+            except Exception as e:
+                print(f"API call failed: {e}")
+                time.sleep(API_TIMEOUTS[t])
+                t += 1
+
+        if not success:
+            raise Exception("Failed to get response from Anthropic API after multiple retries")
+
+        return response
+
+    def get_top_p_answer(
+        self,
+        messages: List[Dict],
+        system: str,
+        max_tokens: int,
+        temperature: float,
+        top_p: float,
+    ) -> str:
+        result = {
+            "timestamp": get_timestamp(),
+        }
+
+        response = self._prompt_request(
+            messages=messages,
+            system=system,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            top_p=top_p,
+        )
+
+        result["answer"] = response.content[0].text.strip()
+        return result
+
+    def get_greedy_answer(
+        self, messages: List[Dict], max_tokens: int
+    ) -> str:
+        return self.get_top_p_answer(
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=0,
+            top_p=1.0,
+        )
+
 ####################################################################################
 # MODEL CREATOR
 ####################################################################################

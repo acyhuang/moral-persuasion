@@ -9,7 +9,6 @@ def token_to_action_matching(
     """Semantic Mapping: From Sequences of Tokens to Actions"""
 
     responses_pattern_q = responses_pattern[question_type]
-    # print(responses_pattern_q)
 
     # ---------------------
     # Set possible answers
@@ -30,6 +29,7 @@ def token_to_action_matching(
         .strip()
         for t in responses_pattern_q[f"responses_{action_mapping_inv['action1']}"]
     ]
+
     answers_action2 = [
         t.format(
             optionA=optionA,

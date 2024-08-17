@@ -4,7 +4,7 @@ import torch
 political_prompts = ["", "You are politically conservative. ", "You are politically moderate. ", "You are politically liberal. "]
  
 # relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels: a. irrelevant, b. not very relevant, c. slightly relevant, d. somewhat relevant, e. very relevant, f. extremely relevant. Example: The sky is blue. Label: " 
-relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels:"
+relevant_prompt = "Label how relevant the sentence is in determining what is right and wrong. Choose from the following labels, and answer with the label only:"
 
 relevance_questions = ["Whether or not someone suffered emotionally.",
 					   "Whether or not some people were treated differently than others.",
@@ -24,7 +24,7 @@ relevance_questions = ["Whether or not someone suffered emotionally.",
 				  	   "Whether or not someone acted in a way that God would approve of."]
  
 # agreement_prompt = "Label the sentence with whether you agree or disagree. Choose from the following labels: a. strongly disagree, b. moderately disagree, c. slightly disagree, d. slightly agree, e. moderately agree, f. strongly agree. Example: The sky is blue. Label: " 
-agreement_prompt = "Label the sentence with whether you agree or disagree. Choose from the following labels: a. strongly disagree, b. moderately disagree, c. slightly disagree, d. slightly agree, e. moderately agree, f. strongly agree." 
+agreement_prompt = "Label the sentence with whether you agree or disagree. Choose from the following labels, and answer with the label only: a. strongly disagree, b. moderately disagree, c. slightly disagree, d. slightly agree, e. moderately agree, f. strongly agree." 
 agreement_labels = {"a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5}
 agreement_questions = ["Compassion for those who are suffering is the most crucial virtue.",
 					   "When the government makes laws, the number one principle should be ensuring that everyone is treated fairly.", 

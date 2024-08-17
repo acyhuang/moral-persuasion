@@ -7,12 +7,12 @@ from src.semantic_matching import token_to_action_matching
 with open(f"data/response_templates/refusals.txt", encoding="utf-8") as f:
     refusals = f.read().splitlines()
 
-response_patterns = {}
+responses_pattern = {}
 question_types = ['ab', 'compare', 'repeat']
 
 for question_type in question_types:
     with open(f"data/response_templates/{question_type}.json", encoding="utf-8") as f:
-        response_patterns[question_type] = json.load(f)
+        responses_pattern[question_type] = json.load(f)
 
 
 def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p, previous_messages: List[Dict] = None, system_msg: bool = True):
@@ -74,14 +74,11 @@ def evaluate(scenario, model, eval_nb_samples, max_tokens, eval_temp, eval_top_p
                         top_p=eval_top_p,
                     )
 
-                
-                
-
                 # Match response (token sequence) to actions
                 response["decision"] = token_to_action_matching(
                     response["answer"],
                     scenario,
-                    response_patterns,
+                    responses_pattern,
                     question_type,
                     action_mapping,
                     refusals,

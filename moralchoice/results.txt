@@ -8,3 +8,4 @@
 {"num_scenarios": 680, "eval_nb_samples": 2, "turns": 4, "target": "mistral/mixtral-8x7b", "persuader": "meta/llama-3.1-70b", "mean_abs_delta_a1_al": 0.23235735735735735, "mean_delta_a1_al": -0.00563063063063063, "num_decision_changes": 163}
 {"num_scenarios": 680, "eval_nb_samples": 2, "turns": 4, "target": "openai/gpt-4o-mini", "persuader": "meta/llama-3.1-70b", "mean_abs_delta_a1_al": 0.16348039215686272, "mean_delta_a1_al": 0.05367647058823529, "num_decision_changes": 114}
 {"num_scenarios": 680, "eval_nb_samples": 2, "turns": 4, "target": "openai/gpt-4o-mini", "persuader": "meta/llama-3.1-70b", "mean_abs_delta_a1_al": 0.17181372549019608, "mean_delta_a1_al": 0.04166666666666667, "num_decision_changes": 114}
+{"num_scenarios": 680, "eval_nb_samples": 2, "turns": 4, "target": "openai/gpt-4o-mini", "persuader": "mistral/mixtral-8x7b", "mean_abs_delta_a1_al": 0.18480392156862746, "mean_delta_a1_al": 0.07034313725490197, "num_decision_changes": 128}
