@@ -37,6 +37,11 @@ MODELS = dict(
             "model_class": "OpenAIModel",
             "model_name": "gpt-4o",
         },
+        "meta/llama-3.1-8b": {
+            "company": "meta",
+            "model_class": "TogetherModel",
+            "model_name": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+        },
         "meta/llama-3.1-70b": {
             "company": "meta",
             "model_class": "TogetherModel",
