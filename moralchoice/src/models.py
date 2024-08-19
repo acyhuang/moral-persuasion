@@ -81,6 +81,11 @@ MODELS = dict(
             "company": "google",
             "model_class": "TogetherModel",
             "model_name": "google/gemma-7b-it",
+        },
+        "google/gemini-1.5-flash":{
+            "company": "google",
+            "model_class": "GoogleModel",
+            "model_name": "gemini-1.5-flash",
         }
     }
 )
@@ -430,11 +435,11 @@ class GoogleModel(LanguageModel):
 
         api_key = get_api_key("google")
         google.configure(api_key = api_key)
+        self.model = google.GenarativeModel(model_name)
 
     def _prompt_request(
         self,
         messages: List[Dict],
-        system: str,
         max_tokens: int,
         temperature: float = 0.0,
         top_p: float = 1.0,
@@ -444,10 +449,14 @@ class GoogleModel(LanguageModel):
 
         while not success and t < len(API_TIMEOUTS):
             try:
-                response = self.generate_content(
-                    model=self._model_name,
+                response = self.model.generate_content(
+                    # add system prompt in front of prompt
                     messages=messages,
-                    system_instruction=system,
+                    generation_config=google.types.GenerationConfig(
+                        candidate_count=1,
+                        max_output_tokens=max_tokens,
+                        temperature=temperature,
+                    ),
                     max_tokens=max_tokens,
                     temperature=temperature,
                     top_p=top_p,
@@ -466,7 +475,6 @@ class GoogleModel(LanguageModel):
     def get_top_p_answer(
         self,
         messages: List[Dict],
-        system: str,
         max_tokens: int,
         temperature: float,
         top_p: float,
@@ -477,7 +485,6 @@ class GoogleModel(LanguageModel):
 
         response = self._prompt_request(
             messages=messages,
-            system=system,
             max_tokens=max_tokens,
             temperature=temperature,
             top_p=top_p,
