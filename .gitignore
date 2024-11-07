@@ -1,7 +1,7 @@
 /api_keys
 /venv
-/ethics/data
-/moralchoice/data
 /moralchoice/src/__pycache__
 /mft/__pycache__
 /era.code-workspace
+/moralchoice/archive
+.DS_Store
