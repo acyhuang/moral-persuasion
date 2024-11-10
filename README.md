@@ -1,6 +1,7 @@
 # Moral Persuasion in Large Language Models: Evaluating Susceptibility and Ethical Alignment
 
 **Authors**
+
 [Allison Huang](https://www.acyhuang.com/), [Yulu Niki Pi](https://nikipi.github.io/), [Carlos Mougan](https://cmougan.eu/)
 
 **Abstract**
