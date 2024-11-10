@@ -6,4 +6,4 @@ We explore how large language models (LLMs) can be influenced by prompting them 
 
 **Repo**
 - `/moralchoice` contains code for the first experiment (Section 3), and utilizes code from https://github.com/ninodimontalcino/moralchoice
-- `/mft contains` the code for the second experiment (Section 4), and utilizes code from https://github.com/abdulhaim/moral_foundations_llms/
+- `/mft` contains the code for the second experiment (Section 4), and utilizes code from https://github.com/abdulhaim/moral_foundations_llms/
